@@ -36,8 +36,14 @@ router.get('/:id', (req, res) => {
 
 //create using multer for file handling
 router.post('/create', upload.single('image') ,(req, res) => {
-    const id = req.params.id;
-    res.send('Contact created with id ' + id);
+    const filename = req.file ? req.file.filename : 'placeholderFilename';
+    console.log('Uploaded file: ' + filename);
+
+    const {first_name, last_name} = req.body;
+
+    console.log('added contact for ' + ${first_name} ${last_name});
+
+    res.send('Created contact with image/');
 });
 
 router.put('/update', (req, res) => {
