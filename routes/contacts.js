@@ -1,4 +1,5 @@
 import express from 'express';
+import multer from 'multer';
 
 const router = express.Router();
 
@@ -12,7 +13,6 @@ const storage = multer.diskStorage({
         const uniqueFilename = Date.now() + '-' + Math.round(Math.random() * 1000) + '.' + ext; //generate unique filename - current timestamp + random number between 0 and 1000.
         cb(null, uniqueFilename);
     }
-
 });
 const upload = multer({ storage: storage });
 
@@ -34,8 +34,8 @@ router.get('/:id', (req, res) => {
     res.send('Contact by id ' + id);
 });
 
-// to-do: add post, put, and delete routers
-router.post('/create', (req, res) => {
+//create using multer for file handling
+router.post('/create', upload.single('image') ,(req, res) => {
     const id = req.params.id;
     res.send('Contact created with id ' + id);
 });
